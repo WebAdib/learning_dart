@@ -30,7 +30,7 @@ class HomeActivity extends StatelessWidget {
         return Expanded(
           child: AlertDialog(
             title: Text("Alert"),
-            content: Text("Do you wabt to delete ?"),
+            content: Text("Do you want to delete ?"),
             actions: [
               TextButton(onPressed: () {}, child: Text("Yes")),
               TextButton(
@@ -68,36 +68,47 @@ class HomeActivity extends StatelessWidget {
     final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
       backgroundColor: Colors.blue,
     );
-    return DefaultTabController(
-      length: 6,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          title: Text(
-            "My App Bar",
-            style: TextStyle(color: Colors.white),
-          ),
-          bottom: TabBar(
-            isScrollable: true,
-            tabs: [
-              Tab(icon: Icon(Icons.home, color: Colors.white), text: 'Home'),
-              Tab(icon: Icon(Icons.home, color: Colors.white), text: 'Home'),
-              Tab(icon: Icon(Icons.home, color: Colors.white), text: 'Home'),
-              Tab(icon: Icon(Icons.home, color: Colors.white), text: 'Home'),
-              Tab(icon: Icon(Icons.home, color: Colors.white), text: 'Home'),
-              Tab(icon: Icon(Icons.home, color: Colors.white), text: 'Home'),
-            ],
-          ),
-        ),
-        body: Center(
-          child: TabBarView(children: [
-            Center(child: Text("1")),
-            Center(child: Text("2")),
-            Center(child: Text("3")),
-            Center(child: Text("4")),
-            Center(child: Text("5")),
-            Center(child: Text("6")),
-          ]),
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.amberAccent,
+        title: Text("My App"),
+        titleSpacing: 10,
+        toolbarHeight: 60,
+        elevation: 5,
+        actions: [
+          IconButton(
+              onPressed: () {
+                MySnackBar("Product Added", context);
+              },
+              icon: Icon(Icons.add)),
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          Activity1("Activity 1 msg received")),
+                );
+              },
+              child: Text("Go to Activity 1"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Activity2()),
+                );
+              },
+              child: Text("Go to Activity 2"),
+            ),
+          ],
         ),
       ),
     );
@@ -310,5 +321,28 @@ class HomeActivity extends StatelessWidget {
     //
     //
     // );
+  }
+}
+
+class Activity1 extends StatelessWidget {
+  String msg;
+  Activity1(this.msg, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Activity 1")),
+      body: Center(child: Text(msg)),
+    );
+  }
+}
+
+class Activity2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Activity 2")),
+      body: Center(child: Text("Welcome to Activity 2")),
+    );
   }
 }
